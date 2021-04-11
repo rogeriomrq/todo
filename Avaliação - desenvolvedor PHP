@@ -1,0 +1,31 @@
+Avaliação - desenvolvedor PHP
+
+Orientações Gerais:
+	● Criar um projeto e enviá-lo para um repositório de código, como Github ou Gitlab.
+	● O projeto deve estar com nível de visibilidade público.
+	● Prazo de entrega: 3 dias, a partir da data e horário do recebimento.
+
+Setup do Projeto:
+	● Back-end: Laravel ou Symfony.
+	● Front-end: Vuejs ou Angula.
+	● Infraestrutura: Docker ou Docker-Compose
+
+Objetivo:
+	Criar um sistema de lista de tarefas de usuário.
+	As tarefas devem possuir um dos três status, sendo:
+		1. A fazer
+		2. Fazendo
+		3. Concluído
+	Cada usuário poderá ver apenas suas respectivas tarefas.
+
+Requisitos:
+	● Interface de login com algum controle de sessão.
+	● Back-end para autenticação dos usuários da interface de login.
+	● Caso seja utilizado o framework Laravel, criar a estrutura do banco de dados utilizando as Migrations.
+	● Caso seja utilizado o framework Laravel, criar seeders para popular o banco com os usuários.
+
+Desejável:
+	● Documental (README.MD) do projeto
+	● Aplicação de um ou mais princípios SOLID
+	● Aplicação do básico em TDD para back-end
+	● Arquitetura de microsserviços ou modularização

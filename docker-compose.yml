@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  http:
+    build:
+      context: ./
+      dockerfile: docker/webserver.dockerfile
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "80:80"
+      - "433:433"
+      - "9000:9000"
+    links:
+      - app
+    depends_on:
+      - app
+      
+  app:
+    build:
+      context: ./
+      dockerfile: docker/app.dockerfile
+    volumes:
+      - ./:/var/www/html
+    links:
+      - mariadb
+    depends_on:
+      - mariadb
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=mariadb"
+
+  mariadb:
+    image: mariadb
+    environment:
+      - "MYSQL_ROOT_PASSWORD=secret"
+      - "MYSQL_DATABASE=todo"
+      - "MYSQL_USER=root"
+    ports:
+      - "3306:3306"
