@@ -1,40 +1,32 @@
-version: '3'
+version: '3.7'
 
-services:
-  http:
-    build:
-      context: ./
-      dockerfile: docker/webserver.dockerfile
-    volumes:
-      - ./:/var/www/html
-    ports:
-      - "80:80"
-      - "433:433"
-      - "9000:9000"
-    links:
-      - app
-    depends_on:
-      - app
-      
+services: 
   app:
     build:
-      context: ./
-      dockerfile: docker/app.dockerfile
+      context: .
+      dockerfile: ./docker/webserver.dockerfile
+    image: 'laravelapp'
+    ports:
+      - 8080:80
     volumes:
       - ./:/var/www/html
+    environment:
+      MYSQL_DATABASE: 'todo'
+      MYSQL_USER: 'root'
+      MYSQL_ROOT_USER: 'root'
+      MYSQL_ROOT_PASSWORD: ""
     links:
-      - mariadb
+      - db
     depends_on:
-      - mariadb
-    environment:
-      - "DB_PORT=3306"
-      - "DB_HOST=mariadb"
-
-  mariadb:
-    image: mariadb
-    environment:
-      - "MYSQL_ROOT_PASSWORD=secret"
-      - "MYSQL_DATABASE=todo"
-      - "MYSQL_USER=root"
-    ports:
+      - db
+  db:
+    image: mysql:latest
+    restart: always
+    ports: 
       - "3306:3306"
+    environment:
+      MYSQL_DATABASE: 'todo'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_ROOT_PASSWORD: ""
+    volumes:
+      - ./db:/var/lib/mysql
